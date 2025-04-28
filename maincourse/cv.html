@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Curriculum Vitae - Ahmad Fakih Fajri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="light-theme">
+
+<header>
+    <nav>
+        <a href="/">Beranda</a>
+        <a href="/about">Tentang Saya</a>
+        <a href="/project">Project</a>
+        <a href="/contact">Kontak</a>
+        <a href="/cv">CV</a>
+        <button id="theme-toggle">🌞 Tema</button>
+    </nav>
+</header>
+
+<main>
+    <section class="cv">
+        <h1>Curriculum Vitae</h1>
+        <p>Berikut adalah ringkasan pengalaman saya:</p>
+
+        <a href="{{ url_for('static', filename='cv/CV_Ahmad_Fakih_Fajri.pdf') }}" class="download-cv" target="_blank">Lihat CV (PDF)</a>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Ahmad Fakih Fajri</p>
+</footer>
+
+<script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Cek preferensi tema dari Local Storage saat pertama load
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        toggle.innerHTML = '🌙';
+    } else {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        toggle.innerHTML = '🌞';
+    }
+
+    toggle.addEventListener('click', () => {
+        // Tambahkan class 'clicked' untuk animasi muter
+        toggle.classList.add('clicked');
+
+        setTimeout(() => {
+            toggle.classList.remove('clicked');
+        }, 500); // hapus class setelah animasi selesai (0.5 detik)
+
+        // Ganti Tema
+        if (body.classList.contains('light-theme')) {
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+            toggle.innerHTML = '🌙';
+            showToast("Dark Mode Aktif 🌙");
+        } else {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+            localStorage.setItem('theme', 'light');
+            toggle.innerHTML = '🌞';
+            showToast("Light Mode Aktif ☀️");
+        }
+    });
+
+    function showToast(message) {
+        let toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerText = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100);
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => document.body.removeChild(toast), 500);
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>

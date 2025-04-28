@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tentang Saya - Ahmad Fakih Fajri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="light-theme">
+
+<header>
+    <nav>
+        <a href="/">Beranda</a>
+        <a href="/about">Tentang Saya</a>
+        <a href="/project">Project</a>
+        <a href="/contact">Kontak</a>
+        <a href="/cv">CV</a>
+        <button id="theme-toggle">🌞 Tema</button>
+    </nav>
+</header>
+
+<main>
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-img">
+                <img src="{{ url_for('static', filename='img/keil.jpg') }}" alt="Foto Tentang Saya">
+            </div>
+            <div class="about-text">
+                <h1>Tentang Saya</h1>
+                <p>
+                    Perkenalkan saya Ahmad Fakih Fajri, lahir di Banyumas pada tanggal 03 Oktober 2005. Saya berasal dari Wangon, Kab. Banyumas, Jawa Tengah.
+                    Saat ini saya adalah mahasiswa semester 2 di Universitas Padjadjaran yang sedang menempuh pendidikan pada program studi Teknik Elektro.
+                </p>
+                <p>
+                    Sekarang saya tergabung dalam Badan Eksekutif Himpunan Mahasiswa Teknik Elektro Universitas Padjadjaran dengan menjabat sebagai staff Departemen Keilmuan.
+                    
+                </p>
+            </div>
+        </div>
+
+        <div class="education-section">
+            <h2>Riwayat Pendidikan 🎓</h2>
+        
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Universitas Padjadjaran</h3>
+                        <p>Teknik Elektro<br>Agustus 2024 - Sekarang</p>
+                    </div>
+                </div>
+        
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>SMA Negeri 1 Ajibarang</h3>
+                        <p>Matematika & IPA<br>2021 - 2024</p>
+                    </div>
+                </div>
+        
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>SMP Negeri 1 Wangon</h3>
+                        <p>2018 - 2021</p>
+                    </div>
+                </div>
+        
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>SD Negeri 2 Klapagading</h3>
+                        <p>2012 - 2018</p>
+                    </div>
+                </div>
+        
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>TK Diponegoro 147</h3>
+                        <p>2011 - 2012</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bagian Hobi Baru -->
+        <section class="hobby-background">
+            <div class="hobby-section">
+                <h2>Hobi⚔️</h2>
+                <ul>
+                    <li>🎮 Bermain game <strong>Mobile Legends</strong></li>
+                    <li>📺 Menonton <strong>YouTube</strong></li>
+                    <li>🏃‍♂️ Berolahraga <strong>Lari</strong></li>
+                    <li>🏐 Bermain <strong>Voli</strong></li>
+                    <li>🏸 Bermain <strong>Badminton</strong></li>
+                </ul>
+            </div>
+        </section>
+</main>
+
+<footer>
+    <p>© 2025 Ahmad Fakih Fajri</p>
+</footer>
+
+<script>
+    const toggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Cek preferensi tema dari Local Storage saat pertama load
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        toggle.innerHTML = '🌙';
+    } else {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        toggle.innerHTML = '🌞';
+    }
+
+    toggle.addEventListener('click', () => {
+        // Tambahkan class 'clicked' untuk animasi muter
+        toggle.classList.add('clicked');
+
+        setTimeout(() => {
+            toggle.classList.remove('clicked');
+        }, 500); // hapus class setelah animasi selesai (0.5 detik)
+
+        // Ganti Tema
+        if (body.classList.contains('light-theme')) {
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+            toggle.innerHTML = '🌙';
+            showToast("Dark Mode Aktif 🌙");
+        } else {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+            localStorage.setItem('theme', 'light');
+            toggle.innerHTML = '🌞';
+            showToast("Light Mode Aktif ☀️");
+        }
+    });
+
+    function showToast(message) {
+        let toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerText = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100);
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => document.body.removeChild(toast), 500);
+        }, 2500);
+    }
+</script>
+
+</body>
+</html>
